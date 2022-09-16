@@ -1,0 +1,10 @@
+#load_date {
+    padding-left: 2px;
+    color: cadetblue;
+}
+
+#code_snippet {
+    padding: 15px;
+    border: 1px solid black;
+    margin: 0.5em 0;
+}

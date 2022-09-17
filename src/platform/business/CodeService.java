@@ -1,35 +1,30 @@
 package platform.business;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import platform.persistance.CodeRepository;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 @Service
 public class CodeService {
 
-    private ConcurrentMap<Long, Code> codes = new ConcurrentHashMap<>();
+    private CodeRepository codeRepository;
 
-    public long save(Code code) {
-        code.setDate(LocalDateTime.now());
-        long id = codes.size() + 1;
-        codes.put(id, code);
+    @Autowired
+    public CodeService(CodeRepository codeRepository) {
+        this.codeRepository = codeRepository;
+    }
 
-        return id;
+    public Code save(Code code) {
+        return codeRepository.save(code);
     }
 
     public Code get(long id) {
-        return codes.getOrDefault(id, null);
+        return codeRepository.findById(id).orElse(null);
     }
 
     public List<Code> getLatest() {
-        return codes.values().stream()
-                .sorted(Comparator.comparing(Code::getDate).reversed())
-                .limit(10)
-                .collect(Collectors.toList());
+        return codeRepository.findFirst10ByOrderByDateDesc();
     }
 }

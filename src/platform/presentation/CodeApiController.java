@@ -2,13 +2,11 @@ package platform.presentation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import platform.business.Code;
 import platform.business.CodeService;
-import platform.business.EmptyJsonBody;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,8 +40,8 @@ public class CodeApiController {
 
     @PostMapping("/code/new")
     public Map<String, String> postCode(@Validated @RequestBody Code code) {
-        long id = codeService.save(code);
+        code = codeService.save(code);
 
-        return Collections.singletonMap("id", String.valueOf(id));
+        return Collections.singletonMap("id", String.valueOf(code.getId()));
     }
 }

@@ -11,6 +11,7 @@ import platform.business.CodeService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/")
@@ -23,9 +24,9 @@ public class CodeApiController {
         this.codeService = codeService;
     }
 
-    @GetMapping("/code/{id}")
-    public Code getCode(@PathVariable int id) {
-        Code code = codeService.get(id);
+    @GetMapping("/code/{uuid}")
+    public Code getCode(@PathVariable UUID uuid) {
+        Code code = codeService.get(uuid);
         if (code == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Code of given id not found");
         }

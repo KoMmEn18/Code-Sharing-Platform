@@ -9,6 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import platform.business.Code;
 import platform.business.CodeService;
 
+import java.util.UUID;
+
 @Controller
 public class CodeWebController {
 
@@ -19,9 +21,9 @@ public class CodeWebController {
         this.codeService = codeService;
     }
 
-    @GetMapping("/code/{id}")
-    public String getCode(@PathVariable int id, Model model) {
-        Code code = codeService.get(id);
+    @GetMapping("/code/{uuid}")
+    public String getCode(@PathVariable UUID uuid, Model model) {
+        Code code = codeService.get(uuid);
         if (code == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Code of given id not found");
         }

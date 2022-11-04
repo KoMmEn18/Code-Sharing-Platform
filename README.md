@@ -7,6 +7,7 @@ Simple REST API / Web Interface app to share code among users.
 - Freemarker, CSS, JS
 - JSON as data transfer
 - H2 database
+- JPA
 
 ## Endpoints
 
